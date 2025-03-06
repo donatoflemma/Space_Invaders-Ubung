@@ -1,8 +1,12 @@
 import pygame
 import random
 import json
+from pygame import mixer
 from Space_inavders_class import *
+# mixer init()
+pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=512, devicename=None )
 pygame.init()
+
 
 root_dimansion = width, height = 750, 750    # 800,600
 root_SPACE = root('SPACE.jpg',root_dimansion[0],root_dimansion[1] - 50)
@@ -103,7 +107,7 @@ while running:
 ###################################################### ALIEN MOVE #########################################################################
      # Calcola il tempo trascorso
     elapsed_time = (pygame.time.get_ticks() - start_time) // 1000  # Converti in secondi
-   
+    
     
     if  len(lista_provvisoria) == 0:  # Controlla se non ci sono proiettili attivi
         random_namber = random.randint(0, len(list_aliens) - 1)
@@ -287,4 +291,5 @@ while running:
    #Imposta il frame rate cioé la quantitá di frame al secondo, quindi ogni volta che riparte il ciclo 
     pygame.time.Clock().tick(90)
     pygame.display.flip()   # aggiorno sempre la finestra e inserisco gli aggiornamenti , importante
+pygame.mixer.quit()
 pygame.quit()
