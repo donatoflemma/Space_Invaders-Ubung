@@ -107,8 +107,8 @@ counter_immagine  = 0
 direzione = 1
 while running:
     for event in pygame.event.get():
-        if running:
-            pygame.mixer.Sound.play(Sound_play)
+        #if running:
+            #pygame.mixer.Sound.play(Sound_play)
         if event.type == pygame.QUIT:
             running = False
 
