@@ -16,16 +16,16 @@ RED = 255, 0, 0
 WHITE = 255, 255, 255
 GREEN = 176, 196, 170
 root = pygame.display.set_mode(root_dimansion)
-# Tempo iniziale
+# Initial time
 start_time = pygame.time.get_ticks()
-#Sound track
+#Sound track and sound effects
 Sound_player=pygame.mixer.Sound("assets/sounds/Player_Sound.mp3")
 Sound_schild=pygame.mixer.Sound("assets/sounds/Schild.mp3")
 Sound_alien=pygame.mixer.Sound("assets/sounds/Alien_Sound.mp3")
 Sound_explosion=pygame.mixer.Sound("assets/sounds/explosion_Alien.mp3")
 Sound_gameover=pygame.mixer.Sound("assets/sounds/Game-over.mp3")
 Sound_play = pygame.mixer.Sound("assets/sounds/Led Zeppelin - Whole Lotta Love (Official Music Video).mp3")
-# carichiamo il font e lo assegniamo alla variabile fnt
+# we load the font and assign it to the variable fnt
 fnt = pygame.font.SysFont("Times New Roman", 24)
 Score = 0
 #################################### player ###############################################
@@ -66,9 +66,9 @@ for i in range (0,8):
     position = x_position + ((Abstand + 50) * i)
     list_aliens.append(aliens(position,280,'assets/images/ALIENO_2.png','assets/images/ALIENO_2_MOVIMENTO.png'))  # Alieno2
     list_aliens_gun.append(aliens_gun(position + 23,300 ))
-############################################### GUN-COLLISION ##############################################################################
-######################################## COSTRUZIONE BLOCCHI ###################################################         
-##############################  la costruzione va da sotto a sopra !!! ######################################### 
+
+######################################## BLOCK CONSTRUCTION ###################################################         
+##############################  the construction goes from bottom to top !!! ######################################### 
 Schild_list = []
 for i in range (1,7):
     match i :
@@ -113,23 +113,23 @@ while running:
             running = False
 
 ###################################################### ALIEN MOVE #########################################################################
-     # Calcola il tempo trascorso
-    elapsed_time = (pygame.time.get_ticks() - start_time) // 1000  # Converti in secondi
+     # Calculate elapsed time
+    elapsed_time = (pygame.time.get_ticks() - start_time) // 1000  # Convert to seconds
     
     
-    if  len(lista_provvisoria) == 0:  # Controlla se non ci sono proiettili attivi
+    if  len(lista_provvisoria) == 0:  # Check for active projectiles
         random_namber = random.randint(0, len(list_aliens) - 1)
         if list_aliens[random_namber].still_live:   
             lista_provvisoria.append(random_namber)
             list_aliens_gun[random_namber].alien_shot = True
-            list_aliens_gun[random_namber].rect.y += list_aliens_gun[random_namber].speed[1] # l´ho aggiunto ora
+            list_aliens_gun[random_namber].rect.y += list_aliens_gun[random_namber].speed[1] 
             pygame.mixer.Sound.play(Sound_alien)
         
             
     elif len(lista_provvisoria) == 1: 
         list_aliens_gun[lista_provvisoria[0]].alien_shot = True
         list_aliens_gun[lista_provvisoria[0]].rect.y += list_aliens_gun[lista_provvisoria[0]].speed[1]
-        if list_aliens_gun[lista_provvisoria[0]].rect.y >= height:  # Disattiva il proiettile se esce dallo schermo
+        if list_aliens_gun[lista_provvisoria[0]].rect.y >= height:  # Disable the bullet if it leaves the screen
             list_aliens_gun[lista_provvisoria[0]].alien_shot = False
             list_aliens_gun[lista_provvisoria[0]].rect.y = list_aliens[lista_provvisoria[0]].rect.y
             del lista_provvisoria[0]  
@@ -145,7 +145,7 @@ while running:
         if list_aliens_gun[random_namber].rect.colliderect(block.rect)  and block.vierecke_life:
             block.vierecke_life = False
             pygame.mixer.Sound.play(Sound_schild)
-            list_aliens_gun[random_namber].alien_shot = False  # Disabilita il proiettile dopo aver colpito un blocco
+            list_aliens_gun[random_namber].alien_shot = False  # Disables projectile after hitting a blockade
             list_aliens_gun[random_namber].rect.y = list_aliens[random_namber].rect.y 
             del lista_provvisoria[0]
     
@@ -153,7 +153,7 @@ while running:
         
         if list_aliens_gun[random_namber].rect.colliderect(player.rect):
             lista_cuore[counter_cuore].life = False
-            list_aliens_gun[random_namber].alien_shot = False  # Disabilita il proiettile dopo aver colpito un blocco
+            list_aliens_gun[random_namber].alien_shot = False  
             list_aliens_gun[random_namber].rect.y = list_aliens[random_namber].rect.y
             del lista_provvisoria[0] 
             counter_cuore -= 1
@@ -177,7 +177,7 @@ while running:
             if Gun.rect.colliderect(block.rect) and block.vierecke_life:
                 block.vierecke_life = False
                 pygame.mixer.Sound.play(Sound_schild)
-                shot = False  # Disabilita il proiettile dopo aver colpito un blocco
+                shot = False  
                 
     
     
@@ -185,22 +185,22 @@ while running:
             if Gun.rect.colliderect(alien.rect) and alien.still_live:
                 alien.still_live = False
                 pygame.mixer.Sound.play(Sound_explosion)
-                shot = False  # Disabilita il proiettile dopo aver colpito un blocco
+                shot = False  
                 Score += 10
    
 ######################################### KEYS ######################################################
         #   KEY_PUSHED ANWENDUNG
     keys_pushed = pygame.key.get_pressed()
 
-    if  keys_pushed[pygame.K_LEFT]:  # Freccia sinistra
+    if  keys_pushed[pygame.K_LEFT]: 
         player.rect.x -= player.speed 
          
         
-    if  keys_pushed[pygame.K_RIGHT]:  # Freccia destra
+    if  keys_pushed[pygame.K_RIGHT]:  # 
         player.rect.x +=  player.speed
          
 
-    if shot == False:   # l´ho messo qua per fargli seguire lo spostamento in tempo e non al prossimo frame
+    if shot == False:   # I put it here to have it follow the move in time and not to the next frame
             Gun.rect[0] = player.rect.x + 22
             Gun.rect[1] = player.rect.y - 10 
 
@@ -246,7 +246,7 @@ while running:
         
 ############################################## IN THE ROOT ################################################################################
     
-    root.fill(black)    # do un colore alla finestra inserendo la variabile dichiarata sopra
+    root.fill(black)    
     root.blit(root_SPACE.image_root,root_SPACE.root_rect)
     if player.player_life == True:
         root.blit(player.image,player)
@@ -268,13 +268,13 @@ while running:
     elif counter_immagine <= 0:
         direzione = 1
 
-# Disegna gli alieni con l'immagine corretta
+
     for alien in list_aliens:
-        if alien.still_live:  # Verifica se l'alieno è vivo
+        if alien.still_live:  # Check if the alien is alive
             if direzione == 1:
-                root.blit(alien.image1, alien.rect)  # Usa alien.rect per la posizione
+                root.blit(alien.image1, alien.rect)  # Use alien.rect for location
             else:
-                root.blit(alien.image2, alien.rect)  # Usa alien.rect per la posizione
+                root.blit(alien.image2, alien.rect)  
    
     
 ####################################################################################################################
@@ -302,8 +302,8 @@ while running:
     if shot == True:
         pygame.draw.rect(root, GREEN, Gun)
 ############################################## CLOCK - FLIP - QUIT #################################################################################
-   #Imposta il frame rate cioé la quantitá di frame al secondo, quindi ogni volta che riparte il ciclo 
+   #Set the frame rate i.e. the amount of frames per second, so each time the cycle starts again
     pygame.time.Clock().tick(90)
-    pygame.display.flip()   # aggiorno sempre la finestra e inserisco gli aggiornamenti , importante
+    pygame.display.flip()   # I always refresh the window and insert updates , important
 pygame.mixer.quit()
 pygame.quit()
