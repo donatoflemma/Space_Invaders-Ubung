@@ -24,7 +24,7 @@ Sound_schild=pygame.mixer.Sound("assets/sounds/Schild.mp3")
 Sound_alien=pygame.mixer.Sound("assets/sounds/Alien_Sound.mp3")
 Sound_explosion=pygame.mixer.Sound("assets/sounds/explosion_Alien.mp3")
 Sound_gameover=pygame.mixer.Sound("assets/sounds/Game-over.mp3")
-Sound_play = pygame.mixer.Sound("assets/sounds/Led Zeppelin - Whole Lotta Love (Official Music Video).mp3")
+#Sound_play = pygame.mixer.Sound("assets/sounds/Led Zeppelin - Whole Lotta Love (Official Music Video).mp3")
 # we load the font and assign it to the variable fnt
 fnt = pygame.font.SysFont("Times New Roman", 24)
 Score = 0
@@ -107,8 +107,8 @@ counter_immagine  = 0
 direzione = 1
 while running:
     for event in pygame.event.get():
-        if running:
-            pygame.mixer.Sound.play(Sound_play)
+        #  if running:
+            #pygame.mixer.Sound.play(Sound_play)
         if event.type == pygame.QUIT:
             running = False
 
